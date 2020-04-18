@@ -31,10 +31,10 @@ class PANDA {
     require_once('lib/Tinify.php');
 
     try {
-    $this->runCompression();
-  } catch (Exception $e) {
+      $this->runCompression();
+    } catch (Exception $e) {
       echo 'Caught exception: ' . $e->getMessage() . "\n";
-  }
+    }
 
   }
 
