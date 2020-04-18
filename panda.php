@@ -51,7 +51,7 @@ class PANDA {
 
     foreach ($files as $image) {
       $image = $this->folder . '/' . $image;
-        $source = \Tinify\fromFile($image);
+      $source = \Tinify\fromFile($image);
 
       if ($this->proxy) {
         \Tinify\setProxy($this->proxy);
