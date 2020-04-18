@@ -6,6 +6,7 @@
 /* License: Do what you want ;) Enjoy                           */
 
 /* Simple PHP Class to compress PNG/JPG images with Tinify      */
+
 /* How to use?                                                  */
 /* Please, change $key and $folder with images                  */
 /* to compress. Get your API KEY ===============>               */
