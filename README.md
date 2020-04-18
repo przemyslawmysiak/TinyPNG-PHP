@@ -2,8 +2,9 @@
 TinyPNG, TinyJPG PHP Mini Class
 
 Author: Przemysław Mysiak
+
 Author URL: https://mysiak.net
-License: Do what you want ;) Enjoy
+
 
 Simple PHP Class to compress PNG/JPG images with Tinify
 
