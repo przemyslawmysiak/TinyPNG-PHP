@@ -1,7 +1,7 @@
 <?php
 
 
-/* Author: Przemysław Mysiak                                    */
+/* Author: Przemysław Mysiak & Internet Users                   */
 /* Author URL: https://mysiak.net                               */
 /* License: Do what you want ;) Enjoy                           */
 
@@ -41,30 +41,44 @@ class PANDA {
 
   public function runCompression() {
 
+    $files = $this->getImagesList();
     if(!$this->key) die('Please, change your API key.');
+    if(!$files) die('Folder with images is empty');
 
     \Tinify\setKey($this->key);
 
-    $files = $this->getImagesList();
-
-    if(!$files) die('Folder with images is empty');
-
     foreach ($files as $image) {
-      $image = $this->folder . '/' . $image;
-      $source = \Tinify\fromFile($image);
+      $image_src = $this->folder . '/' . $image['filename'];
+      $source = \Tinify\fromFile($image_src);
 
       if ($this->proxy) {
         \Tinify\setProxy($this->proxy);
       }
 
-      $source->toFile($image);
+      $source->toFile($image_src);
+      $percent = round(100-(($this->bytesConverter(filesize($image_src)) / $image['filesize'])*100),2);
 
-      echo $image . ' :: Done' . "\n";
+      echo $image['filename'] . ' :: Done ' . '(' . $image['filesize'] . ' => ' . $this->bytesConverter(filesize($image_src)) . ' ['. $percent . '% saved]' . ')' .  "\n";
     }
   }
 
   public function getImagesList() {
-    return preg_grep('~\.(jpg|jpeg|png)$~', scandir($this->folder));
+    $list = preg_grep('~\.(jpg|jpeg|png)$~', scandir($this->folder));
+    $array = array();
+    $i = 0;
+
+    foreach ($list as $image) {
+      $array[$i]['filename'] = $image;
+      $array[$i]['filesize'] = $this->bytesConverter(filesize($this->folder . '/' . $image));
+
+      $i++;
+    }
+    return $array;
+  }
+  public function bytesConverter($bytes, $precision = 2) {
+    $unit = ["B", "KB", "MB", "GB"];
+    $exp = floor(log($bytes, 1024)) | 0;
+    return round($bytes / (pow(1024, $exp)), $precision) . ' ' . $unit[$exp];
   }
 
 }
