@@ -1,7 +1,7 @@
 # TinyPNG-PHP
 TinyPNG, TinyJPG PHP Mini Class
 
-Author: Przemysław Mysiak
+Author: Przemysław Mysiak & Internet Users
 
 Author URL: https://mysiak.net
 
